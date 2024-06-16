@@ -23,7 +23,17 @@ connection.commit()
 # Dictionary to store the last time each user said "anudha"
 last_anudha_time = {}
 top_anudha_user = None
-
+# Dictionary to store the full Names of the users
+nicknames = {
+    "641948208653795338": "Aslaan Waheed",
+    "974243632888578048": "George Ou",
+    "365733521102340096": "Roger Zhu",
+    "727071988119765063": "An*dha Wjisehinge",
+    # "411412560215146497": "test1 test2",
+}
+# Split the full names into first and last names
+for user_id, nickname in nicknames.items():
+    nicknames[user_id] = nickname.split()
 # Custom help command
 class CustomHelpCommand(commands.MinimalHelpCommand):
     def __init__(self):
@@ -151,7 +161,12 @@ async def on_message(message):
         
         connection.commit()
         await message.reply('🤨 📸 **You said Anudha, congrats!**', delete_after=10)
-
+    # Nickname functionality, where the bot replies in the format "firstname '{message content}' lastname"
+    if user_id in nicknames:
+        first_name, last_name = nicknames[user_id]
+        nickname_message = f'{first_name} "{message.content}" {last_name}'
+        await message.reply(nickname_message, delete_after=10)
+        
     # Process commands after handling the message
     await bot.process_commands(message)
 
