@@ -1,0 +1,1 @@
+You'll need a Heroku account to deploy the bot, once you add the PostGresSQL addon to your Heroku App, get the database url and add it as an environment token via terminal. There are some detailed tutorials on how to set up heroku for your first app.
